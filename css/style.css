@@ -219,3 +219,33 @@ table tr:hover{
 .btn-eliminar{
     background:#F68121;
 }
+/* BUSCADOR */
+
+.buscador{
+    margin-top:20px;
+}
+
+.buscador input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+/* ACTIVIDAD */
+
+.actividad{
+    background:white;
+    margin-top:30px;
+    padding:20px;
+    border-radius:10px;
+}
+
+.actividad ul{
+    margin-top:15px;
+    padding-left:20px;
+}
+
+.actividad li{
+    margin-bottom:10px;
+}
