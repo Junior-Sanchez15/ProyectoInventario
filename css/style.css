@@ -169,3 +169,53 @@ footer{
     }
 
 }
+
+/* TABLA PRODUCTOS */
+
+.tabla-productos{
+    background:white;
+    margin-top:40px;
+    padding:20px;
+    border-radius:10px;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+table th{
+    background:#0b1838;
+    color:white;
+    padding:12px;
+}
+
+table td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+}
+
+table tr:hover{
+    background:#f4f4f4;
+}
+
+/* BOTONES */
+
+.btn-editar,
+.btn-eliminar{
+    border:none;
+    padding:8px 12px;
+    color:white;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+.btn-editar{
+    background:#0b1838;
+}
+
+.btn-eliminar{
+    background:#F68121;
+}
