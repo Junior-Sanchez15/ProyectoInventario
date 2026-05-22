@@ -8,6 +8,8 @@ body{
     font-family:Arial, Helvetica, sans-serif;
     background:#f4f4f4;
     color:#333;
+
+    animation:fade 0.5s ease;
 }
 
 /* HEADER */
@@ -43,7 +45,16 @@ nav a:hover{
 /* HERO */
 
 .hero{
-    background:#0b1838;
+     background:
+    linear-gradient(
+        rgba(11,24,56,0.9),
+        rgba(11,24,56,0.9)
+    ),
+    url('../img/warehouse.jpg');
+
+    background-size:cover;
+    background-position:center;
+
     color:white;
     text-align:center;
     padding:60px 20px;
@@ -248,4 +259,16 @@ table tr:hover{
 
 .actividad li{
     margin-bottom:10px;
+}
+
+@keyframes fade{
+
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
+
 }
