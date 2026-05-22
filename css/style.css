@@ -1,0 +1,251 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f4f4f4;
+    color:#333;
+}
+
+/* HEADER */
+
+header{
+    background:#0b1838;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+/* NAV */
+
+nav{
+    background:#F68121;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    padding:15px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:#0b1838;
+}
+
+/* HERO */
+
+.hero{
+    background:#0b1838;
+    color:white;
+    text-align:center;
+    padding:60px 20px;
+}
+
+.hero h2{
+    font-size:40px;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:18px;
+}
+
+/* MAIN */
+
+main{
+    padding:30px;
+}
+
+/* BIENVENIDA */
+
+.bienvenida{
+    margin-bottom:30px;
+}
+
+/* CARDS */
+
+.cards{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    flex:1;
+    min-width:200px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card i{
+    font-size:40px;
+    color:#F68121;
+    margin-bottom:15px;
+}
+
+/* ASIDE */
+
+aside{
+    background:white;
+    margin:20px;
+    padding:20px;
+    border-radius:10px;
+}
+
+/* FORMULARIO */
+
+.formulario{
+    background:white;
+    max-width:500px;
+    margin:auto;
+    padding:30px;
+    border-radius:10px;
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.formulario input,
+.formulario textarea{
+    padding:10px;
+}
+
+.formulario button{
+    background:#F68121;
+    color:white;
+    border:none;
+    padding:12px;
+    cursor:pointer;
+
+    transition:0.3s;
+}
+
+.formulario button:hover{
+    background:#d96c12;
+}
+
+/* FOOTER */
+
+footer{
+    background:#0b1838;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:30px;
+}
+
+/* MEJORA VISUAL RESPONSIVE */
+
+@media(max-width:768px){
+
+    nav{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .cards{
+        flex-direction:column;
+    }
+
+    .hero h2{
+        font-size:28px;
+    }
+
+}
+
+/* TABLA PRODUCTOS */
+
+.tabla-productos{
+    background:white;
+    margin-top:40px;
+    padding:20px;
+    border-radius:10px;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+table th{
+    background:#0b1838;
+    color:white;
+    padding:12px;
+}
+
+table td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+}
+
+table tr:hover{
+    background:#f4f4f4;
+}
+
+/* BOTONES */
+
+.btn-editar,
+.btn-eliminar{
+    border:none;
+    padding:8px 12px;
+    color:white;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+.btn-editar{
+    background:#0b1838;
+}
+
+.btn-eliminar{
+    background:#F68121;
+}
+/* BUSCADOR */
+
+.buscador{
+    margin-top:20px;
+}
+
+.buscador input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+/* ACTIVIDAD */
+
+.actividad{
+    background:white;
+    margin-top:30px;
+    padding:20px;
+    border-radius:10px;
+}
+
+.actividad ul{
+    margin-top:15px;
+    padding-left:20px;
+}
+
+.actividad li{
+    margin-bottom:10px;
+}
