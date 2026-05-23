@@ -20,12 +20,22 @@
         <h1>Registro de Productos</h1>
     </header>
 
-    <nav>
-        <a href="index.html">Inicio</a>
-        <a href="productos.html">Productos</a>
-        <a href="categorias.html">Categorías</a>
-        <a href="inventario.html">Inventario</a>
-    </nav>
+  <!-- BOTÓN MENU -->
+<div class="menu-toggle" onclick="toggleMenu()">
+    ☰
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+
+    <h2>Sistema</h2>
+
+    <a href="index.html">Inicio</a>
+    <a href="productos.html">Productos</a>
+    <a href="inventario.html">Inventario</a>
+    <a href="categorias.html">Categorías</a>
+
+</div>
 
     <main>
 
@@ -35,13 +45,13 @@
             <input type="text" placeholder="Ingrese el nombre del producto">
 
             <label>Categoría</label>
-            <input type="text">
+            <input type="text" placeholder="Ingrese la categoría">
 
             <label>Precio</label>
-            <input type="number">
+            <input type="number" placeholder="Ingrese el precio">
 
             <label>Cantidad</label>
-            <input type="number">
+            <input type="number" placeholder="Ingrese la cantidad">
 
             <label>Descripción</label>
             <textarea></textarea>
@@ -62,6 +72,12 @@
     <p>contacto@inventario.com</p>
 
 </footer>
+
+<script>
+function toggleMenu(){
+    document.getElementById("sidebar").classList.toggle("active");
+}
+</script>
 
 </body>
 

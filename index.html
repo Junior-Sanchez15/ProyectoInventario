@@ -20,12 +20,22 @@
         <h1>Sistema de Inventario</h1>
     </header>
 
-    <nav>
-        <a href="index.html">Inicio</a>
-        <a href="productos.html">Productos</a>
-        <a href="categorias.html">Categorías</a>
-        <a href="inventario.html">Inventario</a>
-    </nav>
+   <!-- BOTÓN MENU -->
+<div class="menu-toggle" onclick="toggleMenu()">
+    ☰
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+
+    <h2>Sistema</h2>
+
+    <a href="index.html">Inicio</a>
+    <a href="productos.html">Productos</a>
+    <a href="inventario.html">Inventario</a>
+    <a href="categorias.html">Categorías</a>
+
+</div>
 
     <section class="hero">
 
@@ -160,7 +170,13 @@
     </main>
 
     <aside>
-        <h3>Información</h3>
+        <h3>
+
+<i class="fa-solid fa-circle-info"></i>
+
+Información
+
+</h3>
         <p>Sistema desarrollado para ISW-306.</p>
     </aside>
 
@@ -171,6 +187,13 @@
     <p>contacto@inventario.com</p>
 
 </footer>
+
+<script>
+function toggleMenu(){
+    document.getElementById("sidebar").classList.toggle("active");
+}
+
+</script>
 
 </body>
 

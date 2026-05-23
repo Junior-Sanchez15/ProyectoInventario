@@ -29,6 +29,10 @@ nav{
     justify-content:center;
     gap:20px;
     padding:15px;
+
+    position:sticky;
+    top:0;
+    z-index:1000;
 }
 
 nav a{
@@ -50,7 +54,7 @@ nav a:hover{
         rgba(11,24,56,0.9),
         rgba(11,24,56,0.9)
     ),
-    url('../img/warehouse.jpg');
+    url('../img/almacen.jpg');
 
     background-size:cover;
     background-position:center;
@@ -95,7 +99,7 @@ main{
     border-radius:10px;
     flex:1;
     min-width:200px;
-    box-shadow:0 2px 5px rgba(0,0,0,0.2);
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
 
     transition:0.3s;
 }
@@ -135,7 +139,24 @@ aside{
 
 .formulario input,
 .formulario textarea{
-    padding:10px;
+    padding:12px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+    outline:none;
+
+    transition:0.3s;
+}
+
+.formulario input:focus,
+.formulario textarea:focus{
+
+    border:1px solid #F68121;
+
+    box-shadow:0 0 5px rgba(246,129,33,0.5);
+
 }
 
 .formulario button{
@@ -160,6 +181,10 @@ footer{
     text-align:center;
     padding:20px;
     margin-top:30px;
+}
+
+footer p{
+    margin:5px 0;
 }
 
 /* MEJORA VISUAL RESPONSIVE */
@@ -195,6 +220,9 @@ table{
     width:100%;
     border-collapse:collapse;
     margin-top:20px;
+
+    border-radius:10px;
+    overflow:hidden;
 }
 
 table th{
@@ -229,6 +257,19 @@ table tr:hover{
 
 .btn-eliminar{
     background:#F68121;
+}
+
+.btn-editar,
+.btn-eliminar{
+    transition:0.3s;
+}
+
+.btn-editar:hover{
+    background:#12295f;
+}
+
+.btn-eliminar:hover{
+    background:#d96c12;
 }
 /* BUSCADOR */
 
@@ -271,4 +312,57 @@ table tr:hover{
         opacity:1;
     }
 
+}
+
+/* SIDEBAR */
+.sidebar{
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 220px;
+    background: #0b1838;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: 0.3s;
+}
+
+.menu-toggle {
+     background: #F68121 ;
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+}
+
+/* cuando esté activo */
+.sidebar.active{
+    transform: translateX(0);
+}
+
+.sidebar h2{
+    color: white;
+    margin-bottom: 20px;
+}
+
+.sidebar a{
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.sidebar a:hover{
+    background: #F68121;
+}
+
+/* botón hamburguesa */
+.menu-toggle{
+    font-size: 30px;
+    cursor: pointer;
+    padding: 10px;
+    color: black;
 }
