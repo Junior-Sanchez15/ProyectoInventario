@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Inventario</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Sistema de Inventario</h1>
+    </header>
+
+   <!-- BOTÓN MENU -->
+<div class="menu-toggle" onclick="toggleMenu()">
+    ☰
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+
+    <h2>Sistema</h2>
+
+    <a href="index.html">Inicio</a>
+    <a href="productos.html">Productos</a>
+    <a href="inventario.html">Inventario</a>
+    <a href="categorias.html">Categorías</a>
+
+</div>
+
+    <section class="hero">
+
+        <h2>Control de Inventario</h2>
+
+        <p>
+            Supervisa el stock y el estado de los productos.
+        </p>
+
+    </section>
+
+    <main>
+
+        <section class="bienvenida">
+            <h2>Panel de Inventario</h2>
+            <p>Control general del inventario del sistema.</p>
+        </section>
+
+        <section class="cards">
+
+            <article class="card">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <h3>Productos Bajos</h3>
+
+                <p>5 productos</p>
+
+            </article>
+
+            <article class="card">
+
+                <i class="fa-solid fa-circle-xmark"></i>
+
+                <h3>Productos Agotados</h3>
+
+                <p>2 productos</p>
+
+            </article>
+
+            <article class="card">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                <h3>Ventas</h3>
+
+                <p>45 ventas</p>
+
+            </article>
+
+        </section>
+
+        <section class="tabla-productos">
+
+            <h2>Estado del Inventario</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Stock Actual</th>
+                        <th>Estado</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>1</td>
+                        <td>Laptop HP</td>
+                        <td>12</td>
+                        <td>Disponible</td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>Mouse Gamer</td>
+                        <td>3</td>
+                        <td>Stock Bajo</td>
+                    </tr>
+
+                    <tr>
+                        <td>3</td>
+                        <td>Teclado Mecánico</td>
+                        <td>0</td>
+                        <td>Agotado</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+        <section class="actividad">
+
+            <h2>Movimientos Recientes</h2>
+
+            <ul>
+
+                <li>✔ Entrada de productos al almacén</li>
+                <li>✔ Actualización de stock</li>
+                <li>✔ Producto agotado detectado</li>
+                <li>✔ Venta registrada</li>
+
+            </ul>
+
+        </section>
+
+    </main>
+
+    <aside>
+        <h3>
+
+<i class="fa-solid fa-circle-info"></i>
+
+Información
+
+</h3>
+        <p>
+            Control y supervisión del inventario en tiempo real.
+        </p>
+    </aside>
+
+    <footer>
+
+        <p>© 2026 Sistema de Inventario</p>
+
+        <p>contacto@inventario.com</p>
+
+    </footer>
+
+    <script>
+function toggleMenu(){
+    document.getElementById("sidebar").classList.toggle("active");
+}
+</script>
+
+</body>
+
+</html>
