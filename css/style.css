@@ -366,3 +366,21 @@ table tr:hover{
     padding: 10px;
     color: black;
 }
+
+.mensaje{
+    margin-top:10px;
+    padding:10px;
+    border-radius:5px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.exito{
+    background:#d4edda;
+    color:#155724;
+}
+
+.error{
+    background:#f8d7da;
+    color:#721c24;
+}

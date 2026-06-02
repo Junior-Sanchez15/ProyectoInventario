@@ -37,24 +37,33 @@
 </div>
 
     <main>
+        <form id="formCategoria" class="formulario">
 
-        <form class="formulario">
+    <label>Nombre de la Categoría</label>
 
-            <label>Nombre de la Categoría</label>
-            <input type="text" placeholder="Ingrese el nombre de la categoría">
+    <input
+        id="nombreCategoria"
+        type="text"
+        placeholder="Ingrese el nombre de la categoría">
 
-            <label>Descripción</label>
-            <textarea placeholder="Ingrese una descripción"></textarea>
+    <label>Descripción</label>
 
-            <button type="submit">
+    <textarea
+        id="descripcionCategoria"
+        placeholder="Ingrese una descripción"></textarea>
 
-                <i class="fa-solid fa-floppy-disk"></i>
+    <button type="submit">
 
-                Guardar Categoría
+        <i class="fa-solid fa-floppy-disk"></i>
 
-            </button>
+        Guardar Categoría
 
-        </form>
+    </button>
+    
+     <!-- Mensajes dinámicos -->
+    <div id="mensajeCategoria"></div>
+
+</form>
 
     </main>
 
@@ -66,11 +75,7 @@
 
 </footer>
 
-<script>
-function toggleMenu(){
-    document.getElementById("sidebar").classList.toggle("active");
-}
-</script>
+<script src="js/menu.js"></script>
 
 </body>
 

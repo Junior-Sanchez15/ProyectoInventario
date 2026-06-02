@@ -38,30 +38,46 @@
 </div>
 
     <main>
+        <form id="formProducto" class="formulario">
 
-        <form class="formulario">
+    <label for="nombreProducto">Nombre del Producto</label>
+    <input
+        id="nombreProducto"
+        type="text"
+        placeholder="Ingrese el nombre del producto">
 
-            <label>Nombre del Producto</label>
-            <input type="text" placeholder="Ingrese el nombre del producto">
+    <label for="categoriaProducto">Categoría</label>
+    <input
+        id="categoriaProducto"
+        type="text"
+        placeholder="Ingrese la categoría">
 
-            <label>Categoría</label>
-            <input type="text" placeholder="Ingrese la categoría">
+    <label for="precioProducto">Precio</label>
+    <input
+        id="precioProducto"
+        type="number"
+        placeholder="Ingrese el precio">
 
-            <label>Precio</label>
-            <input type="number" placeholder="Ingrese el precio">
+    <label for="cantidadProducto">Cantidad</label>
+    <input
+        id="cantidadProducto"
+        type="number"
+        placeholder="Ingrese la cantidad">
 
-            <label>Cantidad</label>
-            <input type="number" placeholder="Ingrese la cantidad">
+    <label for="descripcionProducto">Descripción</label>
+    <textarea
+        id="descripcionProducto"
+        placeholder="Ingrese una descripción del producto"></textarea>
 
-            <label>Descripción</label>
-            <textarea></textarea>
+    <button type="submit">
+        <i class="fa-solid fa-floppy-disk"></i>
+        Guardar Producto
+    </button>
 
-            <button type="submit">
-                <i class="fa-solid fa-floppy-disk"></i>
-                Guardar Producto
-            </button>
+    <!-- Mensajes dinámicos -->
+    <div id="mensajeProducto"></div>
 
-        </form>
+</form>
 
     </main>
 
@@ -73,11 +89,7 @@
 
 </footer>
 
-<script>
-function toggleMenu(){
-    document.getElementById("sidebar").classList.toggle("active");
-}
-</script>
+<script src="js/menu.js"></script>
 
 </body>
 
