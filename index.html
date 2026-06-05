@@ -31,9 +31,11 @@
     <h2>Sistema</h2>
 
     <a href="index.html">Inicio</a>
-    <a href="productos.html">Productos</a>
-    <a href="inventario.html">Inventario</a>
     <a href="categorias.html">Categorías</a>
+    <a href="productos.html">Productos</a>
+    <a href="ventas.html">Ventas</a>
+    <a href="inventario.html">Inventario</a>
+
 
 </div>
 
@@ -59,19 +61,19 @@
             <article class="card">
                 <i class="fa-solid fa-box"></i>
                 <h3>Productos</h3>
-                <p>120 productos registrados</p>
+                <p id="totalProductos">0 productos</p>
             </article>
 
             <article class="card">
                 <i class="fa-solid fa-tags"></i>
                 <h3>Categorías</h3>
-                <p>15 categorías disponibles</p>
+                <p id="totalCategorias">0 categorías</p>
             </article>
 
             <article class="card">
                 <i class="fa-solid fa-warehouse"></i>
                 <h3>Stock</h3>
-                <p>Inventario actualizado</p>
+                <p id="totalStock">0 en stock</p>
             </article>
 
         </section>
@@ -101,50 +103,8 @@
 
         </thead>
 
-        <tbody>
-
-            <tr>
-                <td>1</td>
-                <td>Laptop HP</td>
-                <td>Tecnología</td>
-                <td>$800</td>
-                <td>12</td>
-
-                <td>
-
-                    <button class="btn-editar">
-                        Editar
-                    </button>
-
-                    <button class="btn-eliminar">
-                        Eliminar
-                    </button>
-
-                </td>
-
-            </tr>
-
-            <tr>
-                <td>2</td>
-                <td>Mouse Gamer</td>
-                <td>Accesorios</td>
-                <td>$25</td>
-                <td>50</td>
-
-                <td>
-
-                    <button class="btn-editar">
-                        Editar
-                    </button>
-
-                    <button class="btn-eliminar">
-                        Eliminar
-                    </button>
-
-                </td>
-
-            </tr>
-
+        <tbody id="tablaProductos">
+            
         </tbody>
 
     </table>
@@ -153,16 +113,11 @@
 
 <section class="actividad">
 
-    <h2>Actividad Reciente</h2>
-
-    <ul>
-
-        <li>✔ Producto agregado</li>
-        <li>✔ Stock actualizado</li>
-        <li>✔ Nueva categoría creada</li>
-        <li>✔ Producto eliminado</li>
-
-    </ul>
+   <h2>Actividad Reciente</h2>
+   
+   <ul id="listaActividad">
+    
+   </ul>
 
     </section>
 
@@ -189,6 +144,9 @@ Información
 </footer>
 
 <script src="js/menu.js"></script>
+<script src="js/escudo.js"></script>
+<script src="js/actividad.js"></script>
+<script src="js/dashboard.js"></script>
 
 </body>
 
