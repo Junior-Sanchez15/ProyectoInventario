@@ -35,15 +35,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            const categoria = { nombre, descripcion };
+            let categoria = { nombre, descripcion };
             let categorias = obtenerDatos("categorias");
+            let categoriaEditarObj = obtenerDatos("categoriaEditar", "objeto");
 
-            if (obtenerDatos("categoriaEditar", "objeto")) {
-                let index = categorias.findIndex(c => c.nombre === categoriaEditar.nombre);
+            if (categoriaEditarObj) {
+                categoria.id = categoriaEditarObj.id;
+                let index = categorias.findIndex(c => c.id === categoriaEditarObj.id);
 
                 if (index !== -1) {
                     categorias[index] = categoria;
                 }
+
+                // Actualización en cascada de productos
+                let productos = obtenerDatos("productos");
+                let productosModificados = false;
+                productos.forEach(p => {
+                    if (p.categoria === categoriaEditarObj.nombre) {
+                        p.categoria = categoria.nombre;
+                        productosModificados = true;
+                    }
+                });
+                if (productosModificados) guardarDatos("productos", productos);
 
                 localStorage.removeItem("categoriaEditar");
 
@@ -51,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     guardarActividad("✏️ Categoría editada: " + nombre);
                 }
             } else {
+                categoria.id = generarId();
                 categorias.push(categoria);
 
                 if (typeof guardarActividad === "function") {
@@ -75,41 +89,51 @@ document.addEventListener("DOMContentLoaded", () => {
     let categorias = obtenerDatos("categorias");
 
     if (tablaCategorias) {
-        tablaCategorias.innerHTML = "";
+        let htmlContent = "";
 
         if (categorias.length === 0) {
-            tablaCategorias.innerHTML = `<tr><td colspan="4" style="text-align:center; color: var(--text-muted);">No hay categorías registradas.</td></tr>`;
+            htmlContent = `<tr><td colspan="4" style="text-align:center; color: var(--text-muted);">No hay categorías registradas.</td></tr>`;
         } else {
             categorias.forEach((cat, index) => {
-                const fila = `
+                htmlContent += `
                     <tr>
                         <td>${index + 1}</td>
-                        <td><strong>${cat.nombre}</strong></td>
-                        <td>${cat.descripcion}</td>
+                        <td><strong>${escapeHTML(cat.nombre)}</strong></td>
+                        <td>${escapeHTML(cat.descripcion)}</td>
                         <td>
-                            <button class="btn-editar" onclick="editarCategoria(${index})"><i class="fa-solid fa-pen"></i> Editar</button>
-                            <button class="btn-eliminar" onclick="eliminarCategoria(${index})"><i class="fa-solid fa-trash"></i></button>
+                            <button class="btn-editar" onclick="editarCategoria('${cat.id}')"><i class="fa-solid fa-pen"></i> Editar</button>
+                            <button class="btn-eliminar" onclick="eliminarCategoria('${cat.id}')"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 `;
-                tablaCategorias.innerHTML += fila;
             });
         }
+        tablaCategorias.innerHTML = htmlContent;
     }
 });
 
 // Eliminar Categoría
-window.eliminarCategoria = function(index) {
+window.eliminarCategoria = function(id) {
     let categorias = obtenerDatos("categorias");
+    let index = categorias.findIndex(c => c.id === id);
+    if (index === -1) return;
 
-    showConfirmDialog(`¿Estás seguro de eliminar la categoría <strong>${categorias[index].nombre}</strong>?`, () => {
-        const nombreEliminado = categorias[index].nombre;
+    let productos = obtenerDatos("productos");
+    let categoriaNombre = categorias[index].nombre;
+    
+    let productosVinculados = productos.filter(p => p.categoria === categoriaNombre);
+    if (productosVinculados.length > 0) {
+        showToast(`No se puede eliminar. Hay ${productosVinculados.length} producto(s) en esta categoría.`, "error");
+        return;
+    }
+
+    showConfirmDialog(`¿Estás seguro de eliminar la categoría <strong>${escapeHTML(categoriaNombre)}</strong>?`, () => {
         categorias.splice(index, 1);
         
         guardarDatos("categorias", categorias);
 
         if (typeof guardarActividad === "function") {
-            guardarActividad("❌ Categoría eliminada: " + nombreEliminado);
+            guardarActividad("❌ Categoría eliminada: " + categoriaNombre);
         }
 
         showToast("Categoría eliminada", "exito");
@@ -118,8 +142,11 @@ window.eliminarCategoria = function(index) {
 };
 
 // Editar Categoría
-window.editarCategoria = function(index) {
+window.editarCategoria = function(id) {
     let categorias = obtenerDatos("categorias");
+    let index = categorias.findIndex(c => c.id === id);
+    if (index === -1) return;
+    
     let categoria = categorias[index];
 
     guardarDatos("categoriaEditar", categoria);

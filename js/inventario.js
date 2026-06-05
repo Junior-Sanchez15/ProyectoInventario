@@ -16,10 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let agotados = 0;
 
     if (tabla) {
-        tabla.innerHTML = "";
+        let htmlContent = "";
 
         if (productos.length === 0) {
-            tabla.innerHTML = `<tr><td colspan="4" style="text-align:center; color: var(--text-muted);">El inventario está vacío.</td></tr>`;
+            htmlContent = `<tr><td colspan="4" style="text-align:center; color: var(--text-muted);">El inventario está vacío.</td></tr>`;
         } else {
             productos.forEach((producto, index) => {
                 let estado = "";
@@ -44,17 +44,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const badge = `<span style="background: ${bgState}; color: ${colorState}; padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">${estado}</span>`;
 
-                const fila = `
+                htmlContent += `
                     <tr>
                         <td>${index + 1}</td>
-                        <td><strong>${producto.nombre}</strong></td>
+                        <td><strong>${escapeHTML(producto.nombre)}</strong></td>
                         <td style="font-weight: bold; font-size: 1.1rem;">${producto.cantidad}</td>
                         <td>${badge}</td>
                     </tr>
                 `;
-                tabla.innerHTML += fila;
             });
         }
+        tabla.innerHTML = htmlContent;
     }
 
     // Actualizar Cards

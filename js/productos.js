@@ -73,13 +73,15 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             // Producto
-            const producto = { nombre, categoria, precio, cantidad, descripcion };
+            let producto = { nombre, categoria, precio, cantidad, descripcion };
 
             // Local Storage
             let productos = obtenerDatos("productos");
+            let productoEditarObj = obtenerDatos("productoEditar", "objeto");
 
-            if (obtenerDatos("productoEditar", "objeto")) {
-                let index = productos.findIndex(p => p.nombre === productoEditar.nombre);
+            if (productoEditarObj) {
+                producto.id = productoEditarObj.id; // Mantener ID
+                let index = productos.findIndex(p => p.id === productoEditarObj.id);
                 
                 if (index !== -1) {
                     productos[index] = producto;
@@ -91,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     guardarActividad("✏️ Producto editado: " + nombre);
                 }
             } else {
+                producto.id = generarId(); // Generar nuevo ID
                 productos.push(producto);
 
                 if (typeof guardarActividad === "function") {

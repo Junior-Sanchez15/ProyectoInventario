@@ -15,9 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
         cantidadInput.disabled = true;
         if (btnVender) btnVender.disabled = true;
     } else {
-        productos.forEach((p, index) => {
+        productos.forEach((p) => {
             const option = document.createElement("option");
-            option.value = index;
+            option.value = p.id;
             // Deshabilitar si no hay stock
             if (p.cantidad <= 0) {
                 option.textContent = `${p.nombre} (Sin Stock)`;
@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function actualizarPrecio() {
         if (select.value === "") return;
         
-        let index = parseInt(select.value);
-        let producto = productos[index];
+        let id = select.value;
+        let producto = productos.find(p => p.id === id);
 
         if (!producto) return;
 
@@ -46,8 +46,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function calcularTotal() {
         if (select.value === "") return;
 
-        let index = parseInt(select.value);
-        let producto = productos[index];
+        let id = select.value;
+        let producto = productos.find(p => p.id === id);
         let cantidad = parseInt(cantidadInput.value);
 
         if (!producto || isNaN(cantidad)) {
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            let index = parseInt(select.value);
+            let id = select.value;
             let cantidad = parseInt(cantidadInput.value);
 
             if (isNaN(cantidad) || cantidad <= 0) {
@@ -82,7 +82,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
+            let index = productos.findIndex(p => p.id === id);
             let producto = productos[index];
+
+            if (!producto) return;
 
             if (producto.cantidad < cantidad) {
                 showToast(`Stock insuficiente. Solo quedan ${producto.cantidad} unidades.`, "error");
