@@ -19,21 +19,23 @@
         <h1>Registro de Categorías</h1>
     </header>
 
-   <!-- BOTÓN MENU -->
+   <!-- Boton menu -->
 <div class="menu-toggle" onclick="toggleMenu()">
     ☰
 </div>
 
-<!-- SIDEBAR -->
+<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
 
     <h2>Sistema</h2>
 
     <a href="index.html">Inicio</a>
-    <a href="productos.html">Productos</a>
-    <a href="inventario.html">Inventario</a>
     <a href="categorias.html">Categorías</a>
+    <a href="productos.html">Productos</a>
+    <a href="ventas.html">Ventas</a>
+    <a href="inventario.html">Inventario</a>
 
+    
 </div>
 
     <main>
@@ -65,6 +67,37 @@
 
 </form>
 
+<!-- Tabla de categorías -->
+<section class="tabla-productos">
+
+    <h2>Categorías Registradas</h2>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+
+        <tbody id="tablaCategorias">
+        </tbody>
+
+    </table>
+
+</section>
+
+<section class="actividad">
+
+    <h2>Actividad Reciente</h2>
+
+    <ul id="listaActividad"></ul>
+
+</section>
+
     </main>
 
     <footer>
@@ -76,6 +109,9 @@
 </footer>
 
 <script src="js/menu.js"></script>
+<script src="js/escudo.js"></script>
+<script src="js/actividad.js"></script>
+<script src="js/categorias.js"></script>
 
 </body>
 
