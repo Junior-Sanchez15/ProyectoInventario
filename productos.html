@@ -20,20 +20,22 @@
         <h1>Registro de Productos</h1>
     </header>
 
-  <!-- BOTÓN MENU -->
+  <!-- Boton menu -->
 <div class="menu-toggle" onclick="toggleMenu()">
     ☰
 </div>
 
-<!-- SIDEBAR -->
+<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
 
     <h2>Sistema</h2>
 
     <a href="index.html">Inicio</a>
-    <a href="productos.html">Productos</a>
-    <a href="inventario.html">Inventario</a>
     <a href="categorias.html">Categorías</a>
+    <a href="productos.html">Productos</a>
+    <a href="ventas.html">Ventas</a>
+    <a href="inventario.html">Inventario</a>
+
 
 </div>
 
@@ -47,10 +49,10 @@
         placeholder="Ingrese el nombre del producto">
 
     <label for="categoriaProducto">Categoría</label>
-    <input
-        id="categoriaProducto"
-        type="text"
-        placeholder="Ingrese la categoría">
+    
+    <select id="categoriaProducto">
+        <option value="">Seleccione una categoría</option>
+    </select>
 
     <label for="precioProducto">Precio</label>
     <input
@@ -79,6 +81,14 @@
 
 </form>
 
+<section class="actividad">
+
+    <h2>Actividad Reciente</h2>
+
+    <ul id="listaActividad"></ul>
+
+</section>
+
     </main>
 
     <footer>
@@ -90,6 +100,9 @@
 </footer>
 
 <script src="js/menu.js"></script>
+<script src="js/escudo.js"></script>
+<script src="js/actividad.js"></script>
+<script src="js/productos.js"></script>
 
 </body>
 
