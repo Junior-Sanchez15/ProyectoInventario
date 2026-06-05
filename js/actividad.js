@@ -1,12 +1,25 @@
-function guardarActividad(texto){
+// Gestión de Actividad (actividad.js)
 
+function guardarActividad(texto) {
     let actividad = obtenerDatos("actividad");
     actividad.unshift(texto);
 
-    if(actividad.length > 5){
+    // Mantener solo los últimos 6 registros
+    if (actividad.length > 6) {
         actividad.pop();
     }
 
-    localStorage.setItem("actividad", JSON.stringify(actividad));
+    guardarDatos("actividad", actividad);
 
+    // Actualizar visualmente si la lista está presente en la página actual
+    if (document.getElementById("listaActividad")) {
+        renderizarActividad();
+    }
 }
+
+// Inicializar la renderización cuando cargue el DOM
+document.addEventListener("DOMContentLoaded", () => {
+    if (document.getElementById("listaActividad")) {
+        renderizarActividad();
+    }
+});

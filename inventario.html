@@ -4,9 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control de Inventario</title>
+    <title>Control de Inventario - Sistema de Inventario</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 
     <!-- Font Awesome -->
@@ -17,134 +16,94 @@
 <body>
 
     <header>
-        <h1>Sistema de Inventario</h1>
+        <h1><i class="fa-solid fa-clipboard-list"></i> Control de Inventario</h1>
     </header>
 
-   <!-- Boton menu -->
-<div class="menu-toggle" onclick="toggleMenu()">
-    ☰
-</div>
+    <!-- Boton menu -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+    </div>
 
-<!-- Sidebar -->
-<div class="sidebar" id="sidebar">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>Sistema</h2>
+        <a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a>
+        <a href="categorias.html"><i class="fa-solid fa-tags"></i> Categorías</a>
+        <a href="productos.html"><i class="fa-solid fa-box-open"></i> Productos</a>
+        <a href="ventas.html"><i class="fa-solid fa-cart-shopping"></i> Ventas</a>
+        <a href="inventario.html" class="active"><i class="fa-solid fa-clipboard-list"></i> Inventario</a>
+    </div>
 
-    <h2>Sistema</h2>
-
-    <a href="index.html">Inicio</a>
-    <a href="categorias.html">Categorías</a>
-    <a href="productos.html">Productos</a>
-    <a href="ventas.html">Ventas</a>
-    <a href="inventario.html">Inventario</a>
-
-</div>
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleMenu()"></div>
 
     <section class="hero">
-
-        <h2>Control de Inventario</h2>
-
-        <p>
-            Supervisa el stock y el estado de los productos.
-        </p>
-
+        <h2>Supervisión de Stock</h2>
+        <p>Revisa el estado de todos tus productos en tiempo real.</p>
     </section>
 
     <main>
-
         <section class="bienvenida">
-            <h2>Panel de Inventario</h2>
-            <p>Control general del inventario del sistema.</p>
+            <h2>Panel de Estado</h2>
+            <p>Control general de los niveles de inventario.</p>
         </section>
 
         <section class="cards">
-
-            <article class="card">
-
-                <i class="fa-solid fa-triangle-exclamation"></i>
-
-                <h3>Productos Bajos</h3>
-                
-                <p id="productosBajos">0 productos</p>
-
+            <article class="card" style="border-left: 4px solid var(--primary-color);">
+                <i class="fa-solid fa-triangle-exclamation" style="color: var(--primary-color);"></i>
+                <h3>Stock Bajo</h3>
+                <p id="productosBajos">0</p>
             </article>
 
-            <article class="card">
-
-                <i class="fa-solid fa-circle-xmark"></i>
-
-                <h3>Productos Agotados</h3>
-                
-                <p id="productosAgotados">0 productos</p>
-
+            <article class="card" style="border-left: 4px solid var(--danger-color);">
+                <i class="fa-solid fa-circle-xmark" style="color: var(--danger-color); background: rgba(239, 68, 68, 0.1);"></i>
+                <h3>Agotados</h3>
+                <p id="productosAgotados">0</p>
             </article>
 
-            <article class="card">
-
-                <i class="fa-solid fa-cart-shopping"></i>
-
-                <h3>Ventas</h3>
-                
-                <p id="totalVentas">0 ventas</p>
-
+            <article class="card" style="border-left: 4px solid var(--secondary-color);">
+                <i class="fa-solid fa-money-bill-trend-up" style="color: var(--secondary-color); background: rgba(16, 185, 129, 0.1);"></i>
+                <h3>Total Ventas (Unidades)</h3>
+                <p id="totalVentas">0</p>
             </article>
-
         </section>
 
         <section class="tabla-productos">
-
-            <h2>Estado del Inventario</h2>
-
+            <h2><i class="fa-solid fa-boxes-packing"></i> Detalle de Inventario</h2>
             <table>
-
                 <thead>
-
                     <tr>
                         <th>ID</th>
                         <th>Producto</th>
                         <th>Stock Actual</th>
                         <th>Estado</th>
                     </tr>
-
                 </thead>
-
-                <tbody id="tablaInventario"></tbody>
-
+                <tbody id="tablaInventario">
+                    <!-- Dinámico -->
+                </tbody>
             </table>
-
         </section>
 
         <section class="actividad">
-
-                <h2>Actividad Reciente</h2>
-                   <ul id="listaActividad">
+            <h2><i class="fa-solid fa-bolt"></i> Actividad Reciente</h2>
+            <ul id="listaActividad">
+                <!-- Dinámico -->
+            </ul>
         </section>
-
     </main>
 
-    <aside>
-        <h3>
-
-<i class="fa-solid fa-circle-info"></i>
-
-Información
-
-</h3>
-        <p>
-            Control y supervisión del inventario en tiempo real.
-        </p>
-    </aside>
-
     <footer>
-
         <p>© 2026 Sistema de Inventario</p>
-
         <p>contacto@inventario.com</p>
-
     </footer>
 
-<script src="js/menu.js"></script>
-<script src="js/escudo.js"></script>
-<script src="js/inventario.js"></script>
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/actividad.js"></script>
+    <script src="js/inventario.js"></script>
 
 </body>
-
 </html>

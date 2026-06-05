@@ -1,102 +1,71 @@
-//obtener datos
-let productos = obtenerDatos("productos");
+// Lógica de Inventario (inventario.js)
 
-//Si no hay Productos → Resetea Ventas
-if(productos.length === 0){
+document.addEventListener("DOMContentLoaded", () => {
+    let productos = obtenerDatos("productos");
 
-    localStorage.setItem("totalVentasCantidad", JSON.stringify(0));
-    localStorage.setItem("totalVentasDinero", JSON.stringify(0));
-    localStorage.setItem("ventas", JSON.stringify([]));
+    // Si no hay Productos → Resetea Ventas
+    if (productos.length === 0) {
+        guardarDatos("totalVentasCantidad", 0);
+        guardarDatos("totalVentasDinero", 0);
+        guardarDatos("ventas", []);
+    }
 
-}
+    // Tabla de Inventario
+    const tabla = document.getElementById("tablaInventario");
+    let bajos = 0;
+    let agotados = 0;
 
-// Tabla
-const tabla = document.getElementById("tablaInventario");
+    if (tabla) {
+        tabla.innerHTML = "";
 
-let bajos = 0;
-let agotados = 0;
+        if (productos.length === 0) {
+            tabla.innerHTML = `<tr><td colspan="4" style="text-align:center; color: var(--text-muted);">El inventario está vacío.</td></tr>`;
+        } else {
+            productos.forEach((producto, index) => {
+                let estado = "";
+                let bgState = "";
+                let colorState = "";
 
-if(tabla){
+                if (producto.cantidad === 0) {
+                    estado = "Agotado";
+                    bgState = "rgba(239, 68, 68, 0.1)"; // danger light
+                    colorState = "var(--danger-color)";
+                    agotados++;
+                } else if (producto.cantidad <= 5) {
+                    estado = "Stock Bajo";
+                    bgState = "rgba(245, 158, 11, 0.1)"; // warning light
+                    colorState = "#f59e0b"; // amber
+                    bajos++;
+                } else {
+                    estado = "Disponible";
+                    bgState = "rgba(16, 185, 129, 0.1)"; // success light
+                    colorState = "var(--secondary-color)";
+                }
 
-    tabla.innerHTML = "";
+                const badge = `<span style="background: ${bgState}; color: ${colorState}; padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">${estado}</span>`;
 
-    productos.forEach((producto, index) => {
-
-        let estado = "";
-        let clase = "";
-
-        if(producto.cantidad === 0){
-            estado = "Agotado";
-            clase = "color-rojo";
-            agotados++;
-        }else if(producto.cantidad <= 5){
-            estado = "Stock Bajo";
-            clase = "color-naranja";
-            bajos++;
-        }else{
-            estado = "Disponible";
-            clase = "color-verde";
+                const fila = `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td><strong>${producto.nombre}</strong></td>
+                        <td style="font-weight: bold; font-size: 1.1rem;">${producto.cantidad}</td>
+                        <td>${badge}</td>
+                    </tr>
+                `;
+                tabla.innerHTML += fila;
+            });
         }
+    }
 
-        const fila = `
-            <tr>
-                <td>${index + 1}</td>
-                <td>${producto.nombre}</td>
-                <td>${producto.cantidad}</td>
-                <td class="${clase}">${estado}</td>
-            </tr>
-        `;
+    // Actualizar Cards
+    const productosBajos = document.getElementById("productosBajos");
+    const productosAgotados = document.getElementById("productosAgotados");
+    const totalVentasCard = document.getElementById("totalVentas");
 
-        tabla.innerHTML += fila;
+    if (productosBajos) productosBajos.innerHTML = `${bajos}`;
+    if (productosAgotados) productosAgotados.innerHTML = `${agotados}`;
 
-    });
+    let totalVentasCantidad = obtenerDatos("totalVentasCantidad", "numero") || 0;
+    if (totalVentasCard) totalVentasCard.innerHTML = `${totalVentasCantidad}`;
 
-}
-
-//Actualizar Cards
-const productosBajos = document.getElementById("productosBajos");
-const productosAgotados = document.getElementById("productosAgotados");
-const totalVentasCard = document.getElementById("totalVentas");
-
-if(productosBajos){
-    productosBajos.innerHTML = `${bajos} productos`;
-}
-
-if(productosAgotados){
-    productosAgotados.innerHTML = `${agotados} productos`;
-}
-
-let totalVentasCantidad = obtenerDatos("totalVentasCantidad", "numero") || 0;
-
-if(totalVentasCard){
-    totalVentasCard.innerHTML = `${totalVentasCantidad} ventas`;
-}
-
-//Actividad Reciente
-const listaActividad = document.getElementById("listaActividad");
-
-let actividad = obtenerDatos("actividad");
-
-if(listaActividad){
-
-    let contenido = "";
-
-    actividad.forEach(item => {
-
-        let clase = "";
-        
-        if(item.includes("✔")){
-            clase = "ok";
-        }else if(item.includes("✏️")){
-            clase = "edit";
-        }else if(item.includes("❌")){
-            clase = "delete";
-        }
-
-        contenido += `<li class="${clase}">${item}</li>`;
-
-    });
-
-    listaActividad.innerHTML = contenido;
-
-}
+});

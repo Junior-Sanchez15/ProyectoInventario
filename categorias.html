@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Categorías</title>
+    <title>Registro de Categorías - Sistema de Inventario</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -16,103 +16,83 @@
 <body>
 
     <header>
-        <h1>Registro de Categorías</h1>
+        <h1><i class="fa-solid fa-tags"></i> Registro de Categorías</h1>
     </header>
 
-   <!-- Boton menu -->
-<div class="menu-toggle" onclick="toggleMenu()">
-    ☰
-</div>
+    <!-- Boton menu -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+    </div>
 
-<!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-
-    <h2>Sistema</h2>
-
-    <a href="index.html">Inicio</a>
-    <a href="categorias.html">Categorías</a>
-    <a href="productos.html">Productos</a>
-    <a href="ventas.html">Ventas</a>
-    <a href="inventario.html">Inventario</a>
-
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>Sistema</h2>
+        <a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a>
+        <a href="categorias.html" class="active"><i class="fa-solid fa-tags"></i> Categorías</a>
+        <a href="productos.html"><i class="fa-solid fa-box-open"></i> Productos</a>
+        <a href="ventas.html"><i class="fa-solid fa-cart-shopping"></i> Ventas</a>
+        <a href="inventario.html"><i class="fa-solid fa-clipboard-list"></i> Inventario</a>
+    </div>
     
-</div>
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleMenu()"></div>
 
     <main>
         <form id="formCategoria" class="formulario">
+            <label for="nombreCategoria">Nombre de la Categoría</label>
+            <input
+                id="nombreCategoria"
+                type="text"
+                placeholder="Ingrese el nombre de la categoría">
 
-    <label>Nombre de la Categoría</label>
+            <label for="descripcionCategoria">Descripción</label>
+            <textarea
+                id="descripcionCategoria"
+                placeholder="Ingrese una descripción" rows="4"></textarea>
 
-    <input
-        id="nombreCategoria"
-        type="text"
-        placeholder="Ingrese el nombre de la categoría">
+            <button type="submit">
+                <i class="fa-solid fa-floppy-disk"></i>
+                Guardar Categoría
+            </button>
+        </form>
 
-    <label>Descripción</label>
+        <!-- Tabla de categorías -->
+        <section class="tabla-productos">
+            <h2><i class="fa-solid fa-list"></i> Categorías Registradas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaCategorias">
+                    <!-- Dinámico -->
+                </tbody>
+            </table>
+        </section>
 
-    <textarea
-        id="descripcionCategoria"
-        placeholder="Ingrese una descripción"></textarea>
-
-    <button type="submit">
-
-        <i class="fa-solid fa-floppy-disk"></i>
-
-        Guardar Categoría
-
-    </button>
-    
-     <!-- Mensajes dinámicos -->
-    <div id="mensajeCategoria"></div>
-
-</form>
-
-<!-- Tabla de categorías -->
-<section class="tabla-productos">
-
-    <h2>Categorías Registradas</h2>
-
-    <table>
-
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-
-        <tbody id="tablaCategorias">
-        </tbody>
-
-    </table>
-
-</section>
-
-<section class="actividad">
-
-    <h2>Actividad Reciente</h2>
-
-    <ul id="listaActividad"></ul>
-
-</section>
-
+        <section class="actividad">
+            <h2><i class="fa-solid fa-bolt"></i> Actividad Reciente</h2>
+            <ul id="listaActividad">
+                <!-- Dinámico -->
+            </ul>
+        </section>
     </main>
 
     <footer>
+        <p>© 2026 Sistema de Inventario</p>
+        <p>contacto@inventario.com</p>
+    </footer>
 
-    <p>© 2026 Sistema de Inventario</p>
-
-    <p>contacto@inventario.com</p>
-
-</footer>
-
-<script src="js/menu.js"></script>
-<script src="js/escudo.js"></script>
-<script src="js/actividad.js"></script>
-<script src="js/categorias.js"></script>
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/actividad.js"></script>
+    <script src="js/categorias.js"></script>
 
 </body>
-
 </html>

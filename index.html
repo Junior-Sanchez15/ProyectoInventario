@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Inventario</title>
+    <title>Dashboard - Sistema de Inventario</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -17,137 +17,102 @@
 <body>
 
     <header>
-        <h1>Sistema de Inventario</h1>
+        <h1><i class="fa-solid fa-boxes-stacked"></i> Sistema de Inventario</h1>
     </header>
 
-   <!-- BOTÓN MENU -->
-<div class="menu-toggle" onclick="toggleMenu()">
-    ☰
-</div>
+    <!-- BOTÓN MENU -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+    </div>
 
-<!-- SIDEBAR -->
-<div class="sidebar" id="sidebar">
-
-    <h2>Sistema</h2>
-
-    <a href="index.html">Inicio</a>
-    <a href="categorias.html">Categorías</a>
-    <a href="productos.html">Productos</a>
-    <a href="ventas.html">Ventas</a>
-    <a href="inventario.html">Inventario</a>
-
-
-</div>
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <h2>Sistema</h2>
+        <a href="index.html" class="active"><i class="fa-solid fa-house"></i> Inicio</a>
+        <a href="categorias.html"><i class="fa-solid fa-tags"></i> Categorías</a>
+        <a href="productos.html"><i class="fa-solid fa-box-open"></i> Productos</a>
+        <a href="ventas.html"><i class="fa-solid fa-cart-shopping"></i> Ventas</a>
+        <a href="inventario.html"><i class="fa-solid fa-clipboard-list"></i> Inventario</a>
+    </div>
+    
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleMenu()"></div>
 
     <section class="hero">
-
         <h2>Bienvenido al Sistema de Inventario</h2>
-
-        <p>
-            Administra productos, categorías y stock de manera eficiente.
-        </p>
-
+        <p>Administra productos, categorías y stock de manera eficiente.</p>
     </section>
 
     <main>
-
         <section class="bienvenida">
             <h2>Dashboard</h2>
-            <p>Panel principal del sistema.</p>
+            <p>Panel principal de resumen del sistema.</p>
         </section>
 
         <section class="cards">
-
             <article class="card">
                 <i class="fa-solid fa-box"></i>
-                <h3>Productos</h3>
-                <p id="totalProductos">0 productos</p>
+                <h3>Total Productos</h3>
+                <p id="totalProductos">0</p>
             </article>
 
             <article class="card">
                 <i class="fa-solid fa-tags"></i>
                 <h3>Categorías</h3>
-                <p id="totalCategorias">0 categorías</p>
+                <p id="totalCategorias">0</p>
             </article>
 
             <article class="card">
                 <i class="fa-solid fa-warehouse"></i>
-                <h3>Stock</h3>
-                <p id="totalStock">0 en stock</p>
+                <h3>Stock Global</h3>
+                <p id="totalStock">0</p>
             </article>
-
         </section>
 
         <section class="tabla-productos">
+            <h2><i class="fa-solid fa-clock-rotate-left"></i> Productos Recientes</h2>
             
-    <h2>Productos Recientes</h2>
-    <div class="buscador">
+            <div class="buscador">
+                <input type="search" id="buscarProducto" placeholder="Buscar producto por nombre o categoría...">
+            </div>
 
-    <input type="search"
-    placeholder="Buscar producto...">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Producto</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                        <th>Stock</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaProductos">
+                    <!-- Dinámico -->
+                </tbody>
+            </table>
+        </section>
 
-    </div>
-
-    <table>
-
-        <thead>
-
-            <tr>
-                <th>ID</th>
-                <th>Producto</th>
-                <th>Categoría</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Acciones</th>
-            </tr>
-
-        </thead>
-
-        <tbody id="tablaProductos">
-            
-        </tbody>
-
-    </table>
-
-</section>
-
-<section class="actividad">
-
-   <h2>Actividad Reciente</h2>
-   
-   <ul id="listaActividad">
-    
-   </ul>
-
-    </section>
-
+        <section class="actividad">
+            <h2><i class="fa-solid fa-bolt"></i> Actividad Reciente</h2>
+            <ul id="listaActividad">
+                <!-- Dinámico -->
+            </ul>
+        </section>
 
     </main>
 
-    <aside>
-        <h3>
-
-<i class="fa-solid fa-circle-info"></i>
-
-Información
-
-</h3>
-        <p>Sistema desarrollado para ISW-306.</p>
-    </aside>
-
     <footer>
+        <p>© 2026 Sistema de Inventario</p>
+        <p>contacto@inventario.com</p>
+    </footer>
 
-    <p>© 2026 Sistema de Inventario</p>
-
-    <p>contacto@inventario.com</p>
-
-</footer>
-
-<script src="js/menu.js"></script>
-<script src="js/escudo.js"></script>
-<script src="js/actividad.js"></script>
-<script src="js/dashboard.js"></script>
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/actividad.js"></script>
+    <script src="js/dashboard.js"></script>
 
 </body>
-
 </html>

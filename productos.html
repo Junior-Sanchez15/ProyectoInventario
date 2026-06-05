@@ -4,106 +4,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Productos</title>
+    <title>Registro de Productos - Sistema de Inventario</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
 
     <header>
-        <h1>Registro de Productos</h1>
+        <h1><i class="fa-solid fa-box-open"></i> Registro de Productos</h1>
     </header>
 
-  <!-- Boton menu -->
-<div class="menu-toggle" onclick="toggleMenu()">
-    ☰
-</div>
+    <!-- Boton menu -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+    </div>
 
-<!-- Sidebar -->
-<div class="sidebar" id="sidebar">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2>Sistema</h2>
+        <a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a>
+        <a href="categorias.html"><i class="fa-solid fa-tags"></i> Categorías</a>
+        <a href="productos.html" class="active"><i class="fa-solid fa-box-open"></i> Productos</a>
+        <a href="ventas.html"><i class="fa-solid fa-cart-shopping"></i> Ventas</a>
+        <a href="inventario.html"><i class="fa-solid fa-clipboard-list"></i> Inventario</a>
+    </div>
 
-    <h2>Sistema</h2>
-
-    <a href="index.html">Inicio</a>
-    <a href="categorias.html">Categorías</a>
-    <a href="productos.html">Productos</a>
-    <a href="ventas.html">Ventas</a>
-    <a href="inventario.html">Inventario</a>
-
-
-</div>
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleMenu()"></div>
 
     <main>
         <form id="formProducto" class="formulario">
 
-    <label for="nombreProducto">Nombre del Producto</label>
-    <input
-        id="nombreProducto"
-        type="text"
-        placeholder="Ingrese el nombre del producto">
+            <label for="nombreProducto">Nombre del Producto</label>
+            <input
+                id="nombreProducto"
+                type="text"
+                placeholder="Ingrese el nombre del producto">
 
-    <label for="categoriaProducto">Categoría</label>
-    
-    <select id="categoriaProducto">
-        <option value="">Seleccione una categoría</option>
-    </select>
+            <label for="categoriaProducto">Categoría</label>
+            <select id="categoriaProducto">
+                <option value="">Seleccione una categoría</option>
+            </select>
 
-    <label for="precioProducto">Precio</label>
-    <input
-        id="precioProducto"
-        type="number"
-        placeholder="Ingrese el precio">
+            <label for="precioProducto">Precio</label>
+            <input
+                id="precioProducto"
+                type="number"
+                step="0.01"
+                placeholder="Ingrese el precio">
 
-    <label for="cantidadProducto">Cantidad</label>
-    <input
-        id="cantidadProducto"
-        type="number"
-        placeholder="Ingrese la cantidad">
+            <label for="cantidadProducto">Cantidad en Stock</label>
+            <input
+                id="cantidadProducto"
+                type="number"
+                placeholder="Ingrese la cantidad">
 
-    <label for="descripcionProducto">Descripción</label>
-    <textarea
-        id="descripcionProducto"
-        placeholder="Ingrese una descripción del producto"></textarea>
+            <label for="descripcionProducto">Descripción</label>
+            <textarea
+                id="descripcionProducto"
+                placeholder="Ingrese una descripción del producto" rows="4"></textarea>
 
-    <button type="submit">
-        <i class="fa-solid fa-floppy-disk"></i>
-        Guardar Producto
-    </button>
+            <button type="submit">
+                <i class="fa-solid fa-floppy-disk"></i>
+                Guardar Producto
+            </button>
+        </form>
 
-    <!-- Mensajes dinámicos -->
-    <div id="mensajeProducto"></div>
-
-</form>
-
-<section class="actividad">
-
-    <h2>Actividad Reciente</h2>
-
-    <ul id="listaActividad"></ul>
-
-</section>
+        <section class="actividad">
+            <h2><i class="fa-solid fa-bolt"></i> Actividad Reciente</h2>
+            <ul id="listaActividad">
+                <!-- Dinámico -->
+            </ul>
+        </section>
 
     </main>
 
     <footer>
+        <p>© 2026 Sistema de Inventario</p>
+        <p>contacto@inventario.com</p>
+    </footer>
 
-    <p>© 2026 Sistema de Inventario</p>
-
-    <p>contacto@inventario.com</p>
-
-</footer>
-
-<script src="js/menu.js"></script>
-<script src="js/escudo.js"></script>
-<script src="js/actividad.js"></script>
-<script src="js/productos.js"></script>
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/actividad.js"></script>
+    <script src="js/productos.js"></script>
 
 </body>
-
 </html>

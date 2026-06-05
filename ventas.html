@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Ventas</title>
+    <title>Ventas - Sistema de Inventario</title>
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -16,74 +15,74 @@
 
 <body>
 
-<header>
-    <h1>Ventas</h1>
-</header>
+    <header>
+        <h1><i class="fa-solid fa-cart-shopping"></i> Registrar Venta</h1>
+    </header>
 
-<!-- Menu -->
-<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <!-- Menu -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+    </div>
 
-<div class="sidebar" id="sidebar">
-    <h2>Sistema</h2>
-    <a href="index.html">Inicio</a>
-    <a href="categorias.html">Categorías</a>
-    <a href="productos.html">Productos</a>
-    <a href="ventas.html">Ventas</a>
-    <a href="inventario.html">Inventario</a>
-</div>
+    <div class="sidebar" id="sidebar">
+        <h2>Sistema</h2>
+        <a href="index.html"><i class="fa-solid fa-house"></i> Inicio</a>
+        <a href="categorias.html"><i class="fa-solid fa-tags"></i> Categorías</a>
+        <a href="productos.html"><i class="fa-solid fa-box-open"></i> Productos</a>
+        <a href="ventas.html" class="active"><i class="fa-solid fa-cart-shopping"></i> Ventas</a>
+        <a href="inventario.html"><i class="fa-solid fa-clipboard-list"></i> Inventario</a>
+    </div>
 
-<!-- Hero -->
-<section class="hero hero-ventas">
-    <h2>Registrar Venta</h2>
-    <p>Selecciona un producto y realiza una venta</p>
-</section>
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleMenu()"></div>
 
-<main>
+    <section class="hero hero-ventas">
+        <h2>Punto de Venta</h2>
+        <p>Selecciona un producto disponible y realiza la transacción</p>
+    </section>
 
-<section>
-    <form id="formVenta" class="formulario">
+    <main>
+        <section>
+            <form id="formVenta" class="formulario">
 
-        <label>Producto</label>
-        <select id="productoVenta"></select>
+                <label for="productoVenta">Producto</label>
+                <select id="productoVenta"></select>
 
-        <label>Cantidad</label>
-        <input type="number" id="cantidadVenta" placeholder="Cantidad a vender">
+                <label for="cantidadVenta">Cantidad</label>
+                <input type="number" id="cantidadVenta" placeholder="Cantidad a vender" min="1">
 
-        <label>Precio</label>
-        <input type="text" id="precioProducto" readonly>
-        
-        <label>Total a pagar</label>
-        <input type="text" id="totalVenta" readonly>
-        
-        <button type="submit">
-            <i class="fa-solid fa-cart-shopping"></i>
-            Vender
-        </button>
+                <label for="precioProducto">Precio Unitario</label>
+                <input type="text" id="precioProducto" readonly style="background: #e5e7eb; cursor: not-allowed;">
+                
+                <label for="totalVenta">Total a Pagar</label>
+                <input type="text" id="totalVenta" readonly style="background: rgba(16, 185, 129, 0.1); color: var(--secondary-color); font-weight: bold; font-size: 1.2rem;">
+                
+                <button type="submit" id="btnVender">
+                    <i class="fa-solid fa-cart-arrow-down"></i>
+                    Completar Venta
+                </button>
+            </form>
+        </section>
 
-        <div id="mensajeVenta"></div>
+        <section class="actividad">
+            <h2><i class="fa-solid fa-bolt"></i> Actividad Reciente</h2>
+            <ul id="listaActividad">
+                <!-- Dinámico -->
+            </ul>
+        </section>
+    </main>
 
-    </form>
+    <footer>
+        <p>© 2026 Sistema de Inventario</p>
+        <p>contacto@inventario.com</p>
+    </footer>
 
-</section>
-
-<section class="actividad">
-
-    <h2>Actividad Reciente</h2>
-
-    <ul id="listaActividad"></ul>
-
-</section>
-
-</main>
-
-<footer>
-    <p>© 2026 Sistema de Inventario</p>
-</footer>
-
-<script src="js/menu.js"></script>
-<script src="js/escudo.js"></script>
-<script src="js/actividad.js"></script>
-<script src="js/ventas.js"></script>
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/actividad.js"></script>
+    <script src="js/ventas.js"></script>
 
 </body>
 </html>

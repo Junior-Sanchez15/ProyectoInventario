@@ -1,168 +1,138 @@
-const precioInput = document.getElementById("precioProducto");
-const totalInput = document.getElementById("totalVenta");
-const cantidadInput = document.getElementById("cantidadVenta");
+// Lógica de Ventas (ventas.js)
 
-let productos = obtenerDatos("productos");
+document.addEventListener("DOMContentLoaded", () => {
+    const precioInput = document.getElementById("precioProducto");
+    const totalInput = document.getElementById("totalVenta");
+    const cantidadInput = document.getElementById("cantidadVenta");
+    const select = document.getElementById("productoVenta");
+    const btnVender = document.getElementById("btnVender");
 
-// Select
-const select = document.getElementById("productoVenta");
+    let productos = obtenerDatos("productos");
 
-if(productos.length === 0){
-
-    // Resetear ventas
-    localStorage.setItem("totalVentasCantidad", JSON.stringify(0));
-    localStorage.setItem("totalVentasDinero", JSON.stringify(0));
-    localStorage.setItem("ventas", JSON.stringify([]));
-
-    // Bloquear interfaz
-    select.innerHTML = `<option>No hay productos disponibles</option>`;
-    cantidadInput.disabled = true;
-
-}else{
-
-    // Solo si hay producto
-    productos.forEach((p, index) => {
-
-        const option = document.createElement("option");
-
-        option.value = index;
-        option.textContent = `${p.nombre} (Stock: ${p.cantidad})`;
-
-        select.appendChild(option);
-
-    });
-
-}
-
-
-//Mostrar Precio
-function actualizarPrecio(){
-
-    let index = parseInt(select.value);
-    let producto = productos[index];
-
-    if(!producto) return;
-
-    precioInput.value = producto.precio;
-
-    calcularTotal();
-}
-
-select.addEventListener("change", actualizarPrecio);
-
-
-//Calcular Total
-function calcularTotal(){
-
-    let index = parseInt(select.value);
-    let producto = productos[index];
-
-    let cantidad = parseInt(cantidadInput.value);
-
-    if(!producto || isNaN(cantidad)){
-        totalInput.value = "";
-        return;
+    // Llenar Select
+    if (productos.length === 0) {
+        select.innerHTML = `<option value="">No hay productos disponibles</option>`;
+        cantidadInput.disabled = true;
+        if (btnVender) btnVender.disabled = true;
+    } else {
+        productos.forEach((p, index) => {
+            const option = document.createElement("option");
+            option.value = index;
+            // Deshabilitar si no hay stock
+            if (p.cantidad <= 0) {
+                option.textContent = `${p.nombre} (Sin Stock)`;
+                option.disabled = true;
+            } else {
+                option.textContent = `${p.nombre} (Stock: ${p.cantidad})`;
+            }
+            select.appendChild(option);
+        });
     }
 
-    let total = producto.precio * cantidad;
-
-    totalInput.value = `$${total}`;
-}
-
-cantidadInput.addEventListener("input", calcularTotal);
-
-
-//Formulario
-const form = document.getElementById("formVenta");
-const mensaje = document.getElementById("mensajeVenta");
-
-form.addEventListener("submit", function(e){
-
-    e.preventDefault();
-    
-    let index = parseInt(select.value);
-    let cantidad = parseInt(cantidadInput.value);
-
-    if(isNaN(cantidad) || cantidad <= 0){
-        mensaje.innerHTML = "❌ Cantidad inválida";
-        return;
-    }
-
-    let producto = productos[index];
-
-    if(producto.cantidad < cantidad){
-        mensaje.innerHTML = "❌ No hay suficiente stock";
-        return;
-    }
-
-    let total = producto.precio * cantidad;
-
-    //Total dinero
-    let totalVentasDinero = obtenerDatos("totalVentasDinero", "numero") || 0;
-    totalVentasDinero += total;
-    localStorage.setItem("totalVentasDinero", JSON.stringify(totalVentasDinero));
-
-    //Total cantidad
-    let totalVentasCantidad = obtenerDatos("totalVentasCantidad", "numero") || 0;
-    totalVentasCantidad += cantidad;
-    localStorage.setItem("totalVentasCantidad", JSON.stringify(totalVentasCantidad));
-
-    // Restar stock
-    producto.cantidad -= cantidad;
-
-    localStorage.setItem("productos", JSON.stringify(productos));
-
-    //Guardar venta
-    let ventas = obtenerDatos("ventas");
-
-    ventas.push({
-        producto: producto.nombre,
-        cantidad: cantidad,
-        precio: producto.precio,
-        total: total,
-        fecha: new Date().toLocaleString()
-    });
-
-    localStorage.setItem("ventas", JSON.stringify(ventas));
-
-    guardarActividad(`🛒 Venta: ${producto.nombre} x${cantidad} ($${total})`);
-
-    mensaje.innerHTML = "✅ Venta realizada";
-
-    location.reload();
-
-});
-
-//Inicializar
-cantidadInput.value = 1;
-actualizarPrecio();
-calcularTotal();
-
-//Actividad Reciente
-const listaActividad = document.getElementById("listaActividad");
-
-let actividad = obtenerDatos("actividad");
-
-if(listaActividad){
-
-    let contenido = "";
-
-    actividad.forEach(item => {
-
-        let clase = "";
+    // Mostrar Precio
+    function actualizarPrecio() {
+        if (select.value === "") return;
         
-        if(item.includes("✔")){
-            clase = "ok";
-        }else if(item.includes("✏️")){
-            clase = "edit";
-        }else if(item.includes("❌")){
-            clase = "delete";
+        let index = parseInt(select.value);
+        let producto = productos[index];
+
+        if (!producto) return;
+
+        precioInput.value = `$${parseFloat(producto.precio).toFixed(2)}`;
+        calcularTotal();
+    }
+
+    // Calcular Total
+    function calcularTotal() {
+        if (select.value === "") return;
+
+        let index = parseInt(select.value);
+        let producto = productos[index];
+        let cantidad = parseInt(cantidadInput.value);
+
+        if (!producto || isNaN(cantidad)) {
+            totalInput.value = "";
+            return;
         }
 
-        contenido += `<li class="${clase}">${item}</li>`;
+        let total = producto.precio * cantidad;
+        totalInput.value = `$${total.toFixed(2)}`;
+    }
 
-    });
+    if (select) select.addEventListener("change", actualizarPrecio);
+    if (cantidadInput) cantidadInput.addEventListener("input", calcularTotal);
 
-    listaActividad.innerHTML = contenido;
+    // Formulario de Venta
+    const form = document.getElementById("formVenta");
 
-}
+    if (form) {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            if (select.value === "") {
+                showToast("Por favor, selecciona un producto", "error");
+                return;
+            }
+
+            let index = parseInt(select.value);
+            let cantidad = parseInt(cantidadInput.value);
+
+            if (isNaN(cantidad) || cantidad <= 0) {
+                showToast("La cantidad debe ser mayor a 0", "error");
+                return;
+            }
+
+            let producto = productos[index];
+
+            if (producto.cantidad < cantidad) {
+                showToast(`Stock insuficiente. Solo quedan ${producto.cantidad} unidades.`, "error");
+                return;
+            }
+
+            let total = producto.precio * cantidad;
+
+            // Confirmar venta
+            showConfirmDialog(`Confirmar venta de <strong>${cantidad}x ${producto.nombre}</strong> por <strong>$${total.toFixed(2)}</strong>`, () => {
+                
+                // Total dinero
+                let totalVentasDinero = obtenerDatos("totalVentasDinero", "numero") || 0;
+                totalVentasDinero += total;
+                guardarDatos("totalVentasDinero", totalVentasDinero);
+
+                // Total cantidad
+                let totalVentasCantidad = obtenerDatos("totalVentasCantidad", "numero") || 0;
+                totalVentasCantidad += cantidad;
+                guardarDatos("totalVentasCantidad", totalVentasCantidad);
+
+                // Restar stock
+                producto.cantidad -= cantidad;
+                guardarDatos("productos", productos);
+
+                // Guardar venta
+                let ventas = obtenerDatos("ventas");
+                ventas.push({
+                    producto: producto.nombre,
+                    cantidad: cantidad,
+                    precio: producto.precio,
+                    total: total,
+                    fecha: new Date().toLocaleString()
+                });
+                guardarDatos("ventas", ventas);
+
+                if (typeof guardarActividad === "function") {
+                    guardarActividad(`✔ Venta: ${producto.nombre} x${cantidad} ($${total.toFixed(2)})`);
+                }
+
+                showToast("Venta realizada con éxito", "exito");
+
+                // Recargar después de mostrar el toast
+                setTimeout(() => location.reload(), 1500);
+            });
+        });
+    }
+
+    // Inicializar
+    if (cantidadInput) cantidadInput.value = 1;
+    actualizarPrecio();
+    calcularTotal();
+});
