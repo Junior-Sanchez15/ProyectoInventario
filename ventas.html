@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ventas</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- ICONOS -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<header>
+    <h1>Ventas</h1>
+</header>
+
+<!-- Menu -->
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+<div class="sidebar" id="sidebar">
+    <h2>Sistema</h2>
+    <a href="index.html">Inicio</a>
+    <a href="categorias.html">Categorías</a>
+    <a href="productos.html">Productos</a>
+    <a href="ventas.html">Ventas</a>
+    <a href="inventario.html">Inventario</a>
+</div>
+
+<!-- Hero -->
+<section class="hero hero-ventas">
+    <h2>Registrar Venta</h2>
+    <p>Selecciona un producto y realiza una venta</p>
+</section>
+
+<main>
+
+<section>
+    <form id="formVenta" class="formulario">
+
+        <label>Producto</label>
+        <select id="productoVenta"></select>
+
+        <label>Cantidad</label>
+        <input type="number" id="cantidadVenta" placeholder="Cantidad a vender">
+
+        <label>Precio</label>
+        <input type="text" id="precioProducto" readonly>
+        
+        <label>Total a pagar</label>
+        <input type="text" id="totalVenta" readonly>
+        
+        <button type="submit">
+            <i class="fa-solid fa-cart-shopping"></i>
+            Vender
+        </button>
+
+        <div id="mensajeVenta"></div>
+
+    </form>
+
+</section>
+
+<section class="actividad">
+
+    <h2>Actividad Reciente</h2>
+
+    <ul id="listaActividad"></ul>
+
+</section>
+
+</main>
+
+<footer>
+    <p>© 2026 Sistema de Inventario</p>
+</footer>
+
+<script src="js/menu.js"></script>
+<script src="js/escudo.js"></script>
+<script src="js/actividad.js"></script>
+<script src="js/ventas.js"></script>
+
+</body>
+</html>
