@@ -12,7 +12,7 @@ body{
     animation:fade 0.5s ease;
 }
 
-/* HEADER */
+/* Header */
 
 header{
     background:#0b1838;
@@ -21,7 +21,7 @@ header{
     padding:20px;
 }
 
-/* NAV */
+/* Nav */
 
 nav{
     background:#F68121;
@@ -46,7 +46,7 @@ nav a:hover{
     color:#0b1838;
 }
 
-/* HERO */
+/* Hero */
 
 .hero{
      background:
@@ -73,19 +73,30 @@ nav a:hover{
     font-size:18px;
 }
 
-/* MAIN */
+.hero-ventas{
+    background:
+    linear-gradient(
+        rgba(11,24,56,0.8),
+        rgba(11,24,56,0.8)
+    ),
+    url('../img/ventas.jpg') center/contain no-repeat,
+    url('../img/ventas.jpg') center/cover no-repeat;
+
+}
+
+/* Main */
 
 main{
     padding:30px;
 }
 
-/* BIENVENIDA */
+/* Bienvenida */
 
 .bienvenida{
     margin-bottom:30px;
 }
 
-/* CARDS */
+/* Cards */
 
 .cards{
     display:flex;
@@ -114,7 +125,7 @@ main{
     margin-bottom:15px;
 }
 
-/* ASIDE */
+/* Aside */
 
 aside{
     background:white;
@@ -123,7 +134,7 @@ aside{
     border-radius:10px;
 }
 
-/* FORMULARIO */
+/* Formulario */
 
 .formulario{
     background:white;
@@ -202,6 +213,12 @@ footer p{
 
     .hero h2{
         font-size:28px;
+    }
+
+    .formulario{
+        max-width:100%;
+        margin:20px;
+        padding:20px;
     }
 
 }
@@ -284,14 +301,7 @@ table tr:hover{
     border-radius:8px;
 }
 
-/* ACTIVIDAD */
 
-.actividad{
-    background:white;
-    margin-top:30px;
-    padding:20px;
-    border-radius:10px;
-}
 
 .actividad ul{
     margin-top:15px;
@@ -314,7 +324,7 @@ table tr:hover{
 
 }
 
-/* SIDEBAR */
+/* Sidebar */
 .sidebar{
     position: fixed;
     left: 0;
@@ -329,13 +339,7 @@ table tr:hover{
     transition: 0.3s;
 }
 
-.menu-toggle {
-     background: #F68121 ;
-    width: 100%;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-}
+
 
 /* cuando esté activo */
 .sidebar.active{
@@ -361,10 +365,14 @@ table tr:hover{
 
 /* botón hamburguesa */
 .menu-toggle{
-    font-size: 30px;
-    cursor: pointer;
-    padding: 10px;
-    color: black;
+    background:#F68121;
+    width:100%;
+    padding:10px 20px;
+    display:flex;
+    align-items:center;
+    font-size:30px;
+    cursor:pointer;
+    color:black;
 }
 
 .mensaje{
@@ -383,4 +391,64 @@ table tr:hover{
 .error{
     background:#f8d7da;
     color:#721c24;
+}
+
+/* Actividad */
+
+.actividad{
+    background:white;
+    margin-top:30px;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.actividad h2{
+    margin-bottom:15px;
+}
+
+/* Lista */
+.actividad ul{
+    list-style:none;
+    padding:0;
+}
+
+/* Item */
+.actividad li{
+    background:#f4f4f4;
+    margin-bottom:10px;
+    padding:12px;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:14px;
+}
+
+/* Tipo de actividad*/
+.actividad .ok{
+    border-left:5px solid #28a745;
+}
+
+.actividad .edit{
+    border-left:5px solid #007bff;
+}
+
+.actividad .delete{
+    border-left:5px solid #dc3545;
+}
+
+.color-verde{
+    color: #28a745;
+    font-weight: bold;
+}
+
+.color-naranja{
+    color: #F68121;
+    font-weight: bold;
+}
+
+.color-rojo{
+    color: #dc3545;
+    font-weight: bold;
 }
