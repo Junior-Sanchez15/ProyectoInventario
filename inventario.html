@@ -20,20 +20,21 @@
         <h1>Sistema de Inventario</h1>
     </header>
 
-   <!-- BOTÓN MENU -->
+   <!-- Boton menu -->
 <div class="menu-toggle" onclick="toggleMenu()">
     ☰
 </div>
 
-<!-- SIDEBAR -->
+<!-- Sidebar -->
 <div class="sidebar" id="sidebar">
 
     <h2>Sistema</h2>
 
     <a href="index.html">Inicio</a>
-    <a href="productos.html">Productos</a>
-    <a href="inventario.html">Inventario</a>
     <a href="categorias.html">Categorías</a>
+    <a href="productos.html">Productos</a>
+    <a href="ventas.html">Ventas</a>
+    <a href="inventario.html">Inventario</a>
 
 </div>
 
@@ -61,8 +62,8 @@
                 <i class="fa-solid fa-triangle-exclamation"></i>
 
                 <h3>Productos Bajos</h3>
-
-                <p>5 productos</p>
+                
+                <p id="productosBajos">0 productos</p>
 
             </article>
 
@@ -71,8 +72,8 @@
                 <i class="fa-solid fa-circle-xmark"></i>
 
                 <h3>Productos Agotados</h3>
-
-                <p>2 productos</p>
+                
+                <p id="productosAgotados">0 productos</p>
 
             </article>
 
@@ -81,8 +82,8 @@
                 <i class="fa-solid fa-cart-shopping"></i>
 
                 <h3>Ventas</h3>
-
-                <p>45 ventas</p>
+                
+                <p id="totalVentas">0 ventas</p>
 
             </article>
 
@@ -105,30 +106,7 @@
 
                 </thead>
 
-                <tbody>
-
-                    <tr>
-                        <td>1</td>
-                        <td>Laptop HP</td>
-                        <td>12</td>
-                        <td>Disponible</td>
-                    </tr>
-
-                    <tr>
-                        <td>2</td>
-                        <td>Mouse Gamer</td>
-                        <td>3</td>
-                        <td>Stock Bajo</td>
-                    </tr>
-
-                    <tr>
-                        <td>3</td>
-                        <td>Teclado Mecánico</td>
-                        <td>0</td>
-                        <td>Agotado</td>
-                    </tr>
-
-                </tbody>
+                <tbody id="tablaInventario"></tbody>
 
             </table>
 
@@ -136,17 +114,8 @@
 
         <section class="actividad">
 
-            <h2>Movimientos Recientes</h2>
-
-            <ul>
-
-                <li>✔ Entrada de productos al almacén</li>
-                <li>✔ Actualización de stock</li>
-                <li>✔ Producto agotado detectado</li>
-                <li>✔ Venta registrada</li>
-
-            </ul>
-
+                <h2>Actividad Reciente</h2>
+                   <ul id="listaActividad">
         </section>
 
     </main>
@@ -173,6 +142,8 @@ Información
     </footer>
 
 <script src="js/menu.js"></script>
+<script src="js/escudo.js"></script>
+<script src="js/inventario.js"></script>
 
 </body>
 
