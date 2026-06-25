@@ -64,8 +64,13 @@ function showConfirmDialog(mensaje, onConfirm) {
         setTimeout(() => overlay.remove(), 300);
     };
 
-    document.getElementById("btn-confirm-modal").onclick = () => {
-        onConfirm();
+    document.getElementById("btn-confirm-modal").onclick = async () => {
+        try {
+            await onConfirm();
+        } catch (error) {
+            console.error("Error en confirmación:", error);
+        }
+
         overlay.classList.remove("active");
         setTimeout(() => overlay.remove(), 300);
     };
@@ -123,4 +128,8 @@ function escapeHTML(str) {
         };
         return charsToReplace[tag] || tag;
     });
+}
+
+function formatearMoneda(valor) {
+    return `$ ${Number(valor).toLocaleString("es-DO")} DOP`;
 }
