@@ -1,14 +1,26 @@
 // Lógica de Inventario (inventario.js)
 
-document.addEventListener("DOMContentLoaded", () => {
-    let productos = obtenerDatos("productos");
+document.addEventListener("DOMContentLoaded", async () => {
 
-    // Si no hay Productos → Resetea Ventas
-    if (productos.length === 0) {
-        guardarDatos("totalVentasCantidad", 0);
-        guardarDatos("totalVentasDinero", 0);
-        guardarDatos("ventas", []);
+    // 🔹 VARIABLES
+    let productos = [];
+    let ventas = [];
+
+    // 🔹 Cargar productos desde backend
+    async function cargarProductos() {
+        const res = await fetch("http://localhost:3000/api/productos");
+        productos = await res.json();
     }
+
+    // 🔹 Cargar ventas desde backend
+    async function cargarVentas() {
+        const res = await fetch("http://localhost:3000/api/ventas");
+        ventas = await res.json();
+    }
+
+    // cargar ambos
+    await cargarProductos();
+    await cargarVentas();
 
     // Tabla de Inventario
     const tabla = document.getElementById("tablaInventario");
@@ -28,17 +40,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (producto.cantidad === 0) {
                     estado = "Agotado";
-                    bgState = "rgba(239, 68, 68, 0.1)"; // danger light
+                    bgState = "rgba(239, 68, 68, 0.1)";
                     colorState = "var(--danger-color)";
                     agotados++;
                 } else if (producto.cantidad <= 5) {
                     estado = "Stock Bajo";
-                    bgState = "rgba(245, 158, 11, 0.1)"; // warning light
-                    colorState = "#f59e0b"; // amber
+                    bgState = "rgba(245, 158, 11, 0.1)";
+                    colorState = "#f59e0b";
                     bajos++;
                 } else {
                     estado = "Disponible";
-                    bgState = "rgba(16, 185, 129, 0.1)"; // success light
+                    bgState = "rgba(16, 185, 129, 0.1)";
                     colorState = "var(--secondary-color)";
                 }
 
@@ -54,10 +66,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
             });
         }
+
         tabla.innerHTML = htmlContent;
     }
 
-    // Actualizar Cards
+    // 🔹 CARDS
     const productosBajos = document.getElementById("productosBajos");
     const productosAgotados = document.getElementById("productosAgotados");
     const totalVentasCard = document.getElementById("totalVentas");
@@ -65,7 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (productosBajos) productosBajos.innerHTML = `${bajos}`;
     if (productosAgotados) productosAgotados.innerHTML = `${agotados}`;
 
-    let totalVentasCantidad = obtenerDatos("totalVentasCantidad", "numero") || 0;
+    let totalVentasCantidad = ventas.reduce((acc, v) => acc + Number(v.cantidad), 0);
+
     if (totalVentasCard) totalVentasCard.innerHTML = `${totalVentasCantidad}`;
 
 });
