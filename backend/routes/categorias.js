@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../db");
 
 
-// 🟢 GET → Obtener todas las categorías
+//  GET → Obtener todas las categorías
 router.get("/", (req, res) => {
     db.query("SELECT * FROM categorias", (err, result) => {
         if (err) {
@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 });
 
 
-// 🟢 POST → Crear categoría
+// POST → Crear categoría
 router.post("/", (req, res) => {
     const { id, nombre, descripcion } = req.body;
 
@@ -33,7 +33,7 @@ router.post("/", (req, res) => {
 });
 
 
-// 🟢 PUT → Actualizar categoría
+//  PUT → Actualizar categoría
 router.put("/:id", (req, res) => {
     const { nombre, descripcion } = req.body;
     const id = req.params.id;
@@ -68,7 +68,7 @@ router.put("/:id", (req, res) => {
 });
 
 
-// 🟢 DELETE → Eliminar categoría
+//  DELETE → Eliminar categoría
 router.delete("/:id", (req, res) => {
     db.query(
         "DELETE FROM categorias WHERE id=?",

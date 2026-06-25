@@ -1,10 +1,10 @@
-// 🔹 Variables globales
+// Variables globales
 let categorias = [];
 
 // Lógica de Productos (productos.js)
 document.addEventListener("DOMContentLoaded", async () => {
 
-    // 🔹 Cargar categorías desde backend
+    // Cargar categorías desde backend
     async function cargarCategorias() {
         const res = await fetch("http://localhost:3000/api/categorias");
         categorias = await res.json();
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     await cargarCategorias();
 
-    // 🔹 Llenar Select de Categorias
+    // Llenar Select de Categorias
     const selectCategoria = document.getElementById("categoriaProducto");
 
     if (selectCategoria) {
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
-    // 🔹 Cargar Producto para editar
+    // Cargar Producto para editar
     let productoEditar = obtenerDatos("productoEditar", "objeto");
 
     if (productoEditar) {
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("descripcionProducto").value = productoEditar.descripcion;
     }
 
-    // 🔹 Formulario
+    // Formulario
     const formulario = document.getElementById("formProducto");
 
     if (formulario) {
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const cantidad = parseInt(document.getElementById("cantidadProducto").value);
             const descripcion = document.getElementById("descripcionProducto").value.trim();
 
-            // 🔹 Validaciones
+            // Validaciones
             if (nombre === "" || categoria === "" || isNaN(precio) || isNaN(cantidad) || descripcion === "") {
                 showToast("Todos los campos son obligatorios", "error");
                 return;
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     }
                 }
 
-                // 🔹 Éxito
+                // Éxito
                 showToast("Producto guardado correctamente", "exito");
                 formulario.reset();
 

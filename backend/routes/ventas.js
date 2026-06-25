@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../db");
 
 
-// 🟢 GET → Obtener todas las ventas
+// GET → Obtener todas las ventas
 router.get("/", (req, res) => {
     db.query("SELECT * FROM ventas", (err, result) => {
         if (err) {
@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 });
 
 
-// 🟢 POST → Registrar venta
+// POST → Registrar venta
 router.post("/", (req, res) => {
     const { producto, cantidad, precio, total } = req.body;
 

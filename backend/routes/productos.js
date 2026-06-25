@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require("../db");
 
 
-// 🟢 GET → Obtener todos los productos
+//  GET → Obtener todos los productos
 router.get("/", (req, res) => {
     db.query("SELECT * FROM productos", (err, result) => {
         if (err) {
@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
 });
 
 
-// 🟢 POST → Crear producto (CON VALIDACIÓN DE CATEGORÍA)
+// POST → Crear producto (CON VALIDACIÓN DE CATEGORÍA)
 router.post("/", (req, res) => {
     const { id, nombre, categoria, precio, cantidad, descripcion } = req.body;
 
@@ -46,7 +46,7 @@ router.post("/", (req, res) => {
 });
 
 
-// 🟢 PUT → Actualizar producto (CON VALIDACIÓN)
+// PUT → Actualizar producto (CON VALIDACIÓN)
 router.put("/:id", (req, res) => {
     const { nombre, categoria, precio, cantidad, descripcion } = req.body;
     const id = req.params.id;
@@ -78,7 +78,7 @@ router.put("/:id", (req, res) => {
 });
 
 
-// 🟢 DELETE → Eliminar producto
+// DELETE → Eliminar producto
 router.delete("/:id", (req, res) => {
     db.query(
         "DELETE FROM productos WHERE id=?",
