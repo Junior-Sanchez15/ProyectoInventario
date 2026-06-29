@@ -1,11 +1,23 @@
-// Lógica de Productos (productos.js)
+// Variables globales
+let categorias = [];
 
-document.addEventListener("DOMContentLoaded", () => {
+// Lógica de Productos (productos.js)
+document.addEventListener("DOMContentLoaded", async () => {
+
+    // Cargar categorías desde backend
+    async function cargarCategorias() {
+        const res = await fetch("http://localhost:3000/api/categorias");
+        categorias = await res.json();
+    }
+
+    await cargarCategorias();
+
     // Llenar Select de Categorias
     const selectCategoria = document.getElementById("categoriaProducto");
-    let categorias = obtenerDatos("categorias");
 
     if (selectCategoria) {
+        selectCategoria.innerHTML = '<option value="">Seleccione una categoría</option>';
+
         if (categorias.length === 0) {
             const opcion = document.createElement("option");
             opcion.value = "";
@@ -13,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
             opcion.disabled = true;
             selectCategoria.appendChild(opcion);
         } else {
-            categorias.forEach(function(cat) {
+            categorias.forEach(cat => {
                 const opcion = document.createElement("option");
                 opcion.value = cat.nombre;
                 opcion.textContent = cat.nombre;
@@ -37,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const formulario = document.getElementById("formProducto");
 
     if (formulario) {
-        formulario.addEventListener("submit", function(event) {
+        formulario.addEventListener("submit", async function(event) {
             event.preventDefault();
 
             const nombre = document.getElementById("nombreProducto").value.trim();
@@ -46,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const cantidad = parseInt(document.getElementById("cantidadProducto").value);
             const descripcion = document.getElementById("descripcionProducto").value.trim();
 
-            // Validaciones con Toast
+            // Validaciones
             if (nombre === "" || categoria === "" || isNaN(precio) || isNaN(cantidad) || descripcion === "") {
                 showToast("Todos los campos son obligatorios", "error");
                 return;
@@ -72,44 +84,66 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            // Producto
             let producto = { nombre, categoria, precio, cantidad, descripcion };
-
-            // Local Storage
-            let productos = obtenerDatos("productos");
             let productoEditarObj = obtenerDatos("productoEditar", "objeto");
 
-            if (productoEditarObj) {
-                producto.id = productoEditarObj.id; // Mantener ID
-                let index = productos.findIndex(p => p.id === productoEditarObj.id);
-                
-                if (index !== -1) {
-                    productos[index] = producto;
+            try {
+
+                if (productoEditarObj) {
+                    // 🔹 EDITAR
+                    producto.id = productoEditarObj.id;
+
+                    const res = await fetch(`http://localhost:3000/api/productos/${producto.id}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(producto)
+                    });
+
+                    if (!res.ok) {
+                        throw new Error("Error al actualizar producto");
+                    }
+
+                    localStorage.removeItem("productoEditar");
+
+                    if (typeof guardarActividad === "function") {
+                        guardarActividad("✏️ Producto editado: " + nombre);
+                    }
+
+                } else {
+                    // 🔹 CREAR
+                    producto.id = generarId();
+
+                    const res = await fetch("http://localhost:3000/api/productos", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(producto)
+                    });
+
+                    if (!res.ok) {
+                        throw new Error("Error al guardar producto");
+                    }
+
+                    if (typeof guardarActividad === "function") {
+                        guardarActividad("✔ Producto agregado: " + nombre);
+                    }
                 }
 
-                localStorage.removeItem("productoEditar");
+                // Éxito
+                showToast("Producto guardado correctamente", "exito");
+                formulario.reset();
 
-                if (typeof guardarActividad === "function") {
-                    guardarActividad("✏️ Producto editado: " + nombre);
-                }
-            } else {
-                producto.id = generarId(); // Generar nuevo ID
-                productos.push(producto);
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1500);
 
-                if (typeof guardarActividad === "function") {
-                    guardarActividad("✔ Producto agregado: " + nombre);
-                }
+            } catch (error) {
+                console.error(error);
+                showToast("Error al guardar producto", "error");
             }
-
-            guardarDatos("productos", productos);
-
-            showToast("Producto guardado correctamente", "exito");
-            formulario.reset();
-
-            // Redirigir al dashboard o recargar
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 1500);
         });
     }
 });

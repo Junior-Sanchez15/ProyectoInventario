@@ -1,13 +1,21 @@
 // Lógica de Ventas (ventas.js)
+document.addEventListener("DOMContentLoaded", async () => {
 
-document.addEventListener("DOMContentLoaded", () => {
     const precioInput = document.getElementById("precioProducto");
     const totalInput = document.getElementById("totalVenta");
     const cantidadInput = document.getElementById("cantidadVenta");
     const select = document.getElementById("productoVenta");
     const btnVender = document.getElementById("btnVender");
 
-    let productos = obtenerDatos("productos");
+    // CAMBIO: cargar productos desde backend
+    let productos = [];
+
+    async function cargarProductos() {
+        const res = await fetch("http://localhost:3000/api/productos");
+        productos = await res.json();
+    }
+
+    await cargarProductos();
 
     // Llenar Select
     if (productos.length === 0) {
@@ -38,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!producto) return;
 
-        precioInput.value = `$${parseFloat(producto.precio).toFixed(2)}`;
+        precioInput.value = formatearMoneda(producto.precio);
         calcularTotal();
     }
 
@@ -56,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         let total = producto.precio * cantidad;
-        totalInput.value = `$${total.toFixed(2)}`;
+        totalInput.value = formatearMoneda(total);
     }
 
     if (select) select.addEventListener("change", actualizarPrecio);
@@ -82,8 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            let index = productos.findIndex(p => p.id === id);
-            let producto = productos[index];
+            let producto = productos.find(p => p.id === id);
 
             if (!producto) return;
 
@@ -95,42 +102,58 @@ document.addEventListener("DOMContentLoaded", () => {
             let total = producto.precio * cantidad;
 
             // Confirmar venta
-            showConfirmDialog(`Confirmar venta de <strong>${cantidad}x ${producto.nombre}</strong> por <strong>$${total.toFixed(2)}</strong>`, () => {
+            showConfirmDialog(
+                `Confirmar venta de <strong>${cantidad}x ${producto.nombre}</strong> por <strong>$${total.toFixed(2)}</strong>`,
                 
-                // Total dinero
-                let totalVentasDinero = obtenerDatos("totalVentasDinero", "numero") || 0;
-                totalVentasDinero += total;
-                guardarDatos("totalVentasDinero", totalVentasDinero);
+                async () => {
 
-                // Total cantidad
-                let totalVentasCantidad = obtenerDatos("totalVentasCantidad", "numero") || 0;
-                totalVentasCantidad += cantidad;
-                guardarDatos("totalVentasCantidad", totalVentasCantidad);
+                    try {
+                        // RESTAR STOCK EN BACKEND
+                        producto.cantidad -= cantidad;
 
-                // Restar stock
-                producto.cantidad -= cantidad;
-                guardarDatos("productos", productos);
+                        const res = await fetch(`http://localhost:3000/api/productos/${producto.id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(producto)
+                        });
 
-                // Guardar venta
-                let ventas = obtenerDatos("ventas");
-                ventas.push({
-                    producto: producto.nombre,
-                    cantidad: cantidad,
-                    precio: producto.precio,
-                    total: total,
-                    fecha: new Date().toLocaleString()
-                });
-                guardarDatos("ventas", ventas);
+                        if (!res.ok) {
+                            throw new Error("Error en servidor");
+                        }
+                        //GUARDAR VENTA EN BACKEND
+                        const resVenta = await fetch("http://localhost:3000/api/ventas", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                producto: producto.nombre,
+                                cantidad: cantidad,
+                                precio: producto.precio,
+                                total: total
+                            })
+                        });
+                        
+                        if (!resVenta.ok) {
+                            throw new Error("Error al guardar la venta");
+                        }
 
-                if (typeof guardarActividad === "function") {
-                    guardarActividad(`✔ Venta: ${producto.nombre} x${cantidad} ($${total.toFixed(2)})`);
+                        if (typeof guardarActividad === "function") {
+                            guardarActividad(`✔ Venta: ${producto.nombre} x${cantidad} ($${total.toFixed(2)})`);
+                        }
+
+                        showToast("Venta realizada con éxito", "exito");
+
+                        setTimeout(() => location.reload(), 1500);
+
+                    } catch (error) {
+                        console.error(error);
+                        showToast("Error al procesar la venta", "error");
+                    }
                 }
-
-                showToast("Venta realizada con éxito", "exito");
-
-                // Recargar después de mostrar el toast
-                setTimeout(() => location.reload(), 1500);
-            });
+            );
         });
     }
 

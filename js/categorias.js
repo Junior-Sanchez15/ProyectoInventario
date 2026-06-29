@@ -1,6 +1,17 @@
 // Lógica de Categorías (categorias.js)
 
-document.addEventListener("DOMContentLoaded", () => {
+let categorias = [];
+
+// Cargar desde backend
+async function cargarCategorias() {
+    const res = await fetch("http://localhost:3000/api/categorias");
+    categorias = await res.json();
+}
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+    await cargarCategorias();
+
     // Cargar Datos para editar si existe
     let categoriaEditar = obtenerDatos("categoriaEditar", "objeto");
 
@@ -13,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const formulario = document.getElementById("formCategoria");
 
     if (formulario) {
-        formulario.addEventListener("submit", function(e) {
+        formulario.addEventListener("submit", async function(e) {
             e.preventDefault();
 
             const nombre = document.getElementById("nombreCategoria").value.trim();
@@ -36,43 +47,40 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             let categoria = { nombre, descripcion };
-            let categorias = obtenerDatos("categorias");
             let categoriaEditarObj = obtenerDatos("categoriaEditar", "objeto");
 
+            // EDITAR (PUT)
             if (categoriaEditarObj) {
-                categoria.id = categoriaEditarObj.id;
-                let index = categorias.findIndex(c => c.id === categoriaEditarObj.id);
 
-                if (index !== -1) {
-                    categorias[index] = categoria;
-                }
-
-                // Actualización en cascada de productos
-                let productos = obtenerDatos("productos");
-                let productosModificados = false;
-                productos.forEach(p => {
-                    if (p.categoria === categoriaEditarObj.nombre) {
-                        p.categoria = categoria.nombre;
-                        productosModificados = true;
-                    }
+                await fetch(`http://localhost:3000/api/categorias/${categoriaEditarObj.id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(categoria)
                 });
-                if (productosModificados) guardarDatos("productos", productos);
-
+                
                 localStorage.removeItem("categoriaEditar");
 
                 if (typeof guardarActividad === "function") {
                     guardarActividad("✏️ Categoría editada: " + nombre);
                 }
             } else {
+                // CREAR (POST)
                 categoria.id = generarId();
-                categorias.push(categoria);
+
+                await fetch("http://localhost:3000/api/categorias", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(categoria)
+                });
 
                 if (typeof guardarActividad === "function") {
                     guardarActividad("✔ Categoría agregada: " + nombre);
                 }
             }
-
-            guardarDatos("categorias", categorias);
 
             showToast("Categoría guardada correctamente", "exito");
             formulario.reset();
@@ -86,8 +94,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Mostrar Categorías
     const tablaCategorias = document.getElementById("tablaCategorias");
-    let categorias = obtenerDatos("categorias");
-
     if (tablaCategorias) {
         let htmlContent = "";
 
@@ -114,43 +120,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Eliminar Categoría
 window.eliminarCategoria = function(id) {
-    let categorias = obtenerDatos("categorias");
-    let index = categorias.findIndex(c => c.id === id);
-    if (index === -1) return;
 
-    let productos = obtenerDatos("productos");
-    let categoriaNombre = categorias[index].nombre;
-    
-    let productosVinculados = productos.filter(p => p.categoria === categoriaNombre);
-    if (productosVinculados.length > 0) {
-        showToast(`No se puede eliminar. Hay ${productosVinculados.length} producto(s) en esta categoría.`, "error");
-        return;
-    }
+    let categoria = categorias.find(c => c.id === id);
+    if (!categoria) return;
 
-    showConfirmDialog(`¿Estás seguro de eliminar la categoría <strong>${escapeHTML(categoriaNombre)}</strong>?`, () => {
-        categorias.splice(index, 1);
-        
-        guardarDatos("categorias", categorias);
+    showConfirmDialog(`¿Eliminar <strong>${escapeHTML(categoria.nombre)}</strong>?`, async () => {
+
+        await fetch(`http://localhost:3000/api/categorias/${id}`, {
+            method: "DELETE"
+        });
 
         if (typeof guardarActividad === "function") {
-            guardarActividad("❌ Categoría eliminada: " + categoriaNombre);
+            guardarActividad("❌ Categoría eliminada: " + categoria.nombre);
         }
 
         showToast("Categoría eliminada", "exito");
-        setTimeout(() => location.reload(), 1500);
+        setTimeout(() => location.reload(), 1000);
     });
 };
 
 // Editar Categoría
 window.editarCategoria = function(id) {
-    let categorias = obtenerDatos("categorias");
-    let index = categorias.findIndex(c => c.id === id);
-    if (index === -1) return;
-    
-    let categoria = categorias[index];
+    let categoria = categorias.find(c => c.id === id);
+    if (!categoria) return;
 
     guardarDatos("categoriaEditar", categoria);
-    
-    // Smooth scroll to top instead of reload if we want, but reload is simpler for form population
     location.reload();
 };
